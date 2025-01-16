@@ -2379,7 +2379,7 @@ FindName
 	 mov	dx, [BP_(scratch)]
 %endif
 	 for0	si, bx, {[si] ,ne, ch}, cx	; {[si] nzb}
-.flag:	 cntnub [si+isoDir.Flags] ,&, ASSOCFILE
+.flag:	  jifb [si+isoDir.Flags] ,&, ASSOCFILE, .next
 	  call	Match
 Matchfunc iw
 %ifdef i8086
@@ -2391,8 +2391,8 @@ Matchfunc iw
 %else
 	  retif z
 %endif
-	  mov	cl, [si]
 	  inc	dx
+.next:	  mov	cl, [si]
 	 next
 	 and	dl, 0c0h
 	 add	dx, 64
